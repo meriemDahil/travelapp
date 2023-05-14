@@ -74,7 +74,7 @@ class _AjouterServiceState extends State<AjouterService> {
     });
 
     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-      content: Text('Image uploaded successfully.'),
+      content: Text('un nouveau service a été publié'),
     ));
   }
 

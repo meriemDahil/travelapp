@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:travel_app/screens/aprescreation.dart';
 
 import 'package:travel_app/screens/home/profilUser.dart';
 class Voyage extends StatefulWidget {
@@ -175,6 +177,9 @@ class _VoyageState extends State<Voyage> {
                     _formKey.currentState!.save();
                      print(FirebaseAuth.instance.currentUser!.uid);
                    addUserDetails(_startDate, _endDate,_destination);
+                   Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) =>  AfterCreation()));
+
+                   
                   }
                 },
                 style:  ElevatedButton.styleFrom(backgroundColor: const Color.fromARGB(255, 1, 22, 59), shape: RoundedRectangleBorder(
@@ -183,6 +188,7 @@ class _VoyageState extends State<Voyage> {
                   fixedSize:const Size(170, 50)),
                 child: const Text('OK',style: TextStyle(color: Colors.white,letterSpacing: 0.8, fontSize: 15,fontWeight: FontWeight.w500,),),
               ),
+           
             ],
           ),
         ),

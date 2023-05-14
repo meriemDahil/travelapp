@@ -78,7 +78,7 @@ class _profilUserState extends State<profilUser> {
                 ),
             ),
             const Divider(),
-            ListProfile(title: "Setting", icon: Icons.settings, onPressed:(){}, endicon:true, textcolor: Colors.black),
+            ListProfile(title: "mes voyage", icon: Icons.travel_explore, onPressed:(){}, endicon:true, textcolor: Colors.black),
             ListProfile(title: "Profile", icon: Icons.person, onPressed:(){}, endicon:true, textcolor: Colors.black),
             ListProfile(title: "Crée un voyage ", icon: Icons.luggage, onPressed:(){
               Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => const CreVoyage()));

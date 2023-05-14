@@ -1,8 +1,9 @@
 
 import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:travel_app/screens/aprescreation.dart';
 import 'package:travel_app/screens/home/recommandation/detail.dart';
 
 import 'package:firebase_storage/firebase_storage.dart';
@@ -18,7 +19,7 @@ class _RecommandationState extends State<Recommandation> with SingleTickerProvid
   final List<String> _imageUrls = [];
   late Timer _timer; // Declare the timer variable
   late AnimationController _animationController; 
-
+   String des="";
   @override
   void initState() {
     super.initState();
@@ -83,6 +84,14 @@ class _RecommandationState extends State<Recommandation> with SingleTickerProvid
         'name': _name
       });
     }
+    final document = await FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser!.uid).get();
+      if (document.exists && document.data()!.containsKey('créérVoyage')) {
+          
+        
+      } else {
+        print('field  doesnt exist');
+      }
+
   }
 }
 
@@ -105,8 +114,10 @@ Widget build(BuildContext context) {
                 final firestoreInstance = FirebaseFirestore.instance;
               final snapshot = await firestoreInstance
                   .collection('destination')
-                  .where('url', isEqualTo: imageUrl)
-                  .get();
+                 .where('url', isEqualTo: imageUrl).get();
+               
+
+               
     
               try {
                 if (snapshot.docs.isNotEmpty) {
@@ -115,6 +126,7 @@ Widget build(BuildContext context) {
                   final imageurl = doc.get('url');
                   final name = doc.get('name');
                   final localisation = doc.get('localisation');
+                
     
                   Navigator.push(
                     context,
@@ -128,6 +140,7 @@ Widget build(BuildContext context) {
                     ),
                   );
                 }
+                
               } catch (e) {
                 debugPrint('Error retrieving data from Firestore: $e');
               }
@@ -145,7 +158,9 @@ Widget build(BuildContext context) {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15),
                     image: DecorationImage(
+         
                       image: NetworkImage(
+                        
                         imageUrl,
                       ),
                       fit: BoxFit.cover,
@@ -153,12 +168,15 @@ Widget build(BuildContext context) {
                   ),
                 ),
                 const SizedBox(height: 5),
+                
                 FutureBuilder<DocumentSnapshot>(
                   future: FirebaseFirestore.instance
                       .collection('destination')
                       .where('url', isEqualTo: imageUrl)
                       .get()
                       .then((snapshot) => snapshot.docs.first),
+                     
+                      
     
                   builder: (context, snapshot) {
                     if (!snapshot.hasData) {
@@ -167,6 +185,7 @@ Widget build(BuildContext context) {
                     final data = snapshot.data!.data() as Map<String, dynamic>;
                     final name = data['name'];
                     final localisation = data['localisation'];
+                    
                     return Positioned(
                       left: 5,
                       bottom: 15,
@@ -196,6 +215,8 @@ Widget build(BuildContext context) {
                         ],
                       ),
                     );
+                     
+                     
                   },
                 ),
               ],
@@ -206,7 +227,6 @@ Widget build(BuildContext context) {
       },
     ),
     ),
-
 
   );
 }
