@@ -67,7 +67,7 @@ class _RecommandationState extends State<Recommandation> with SingleTickerProvid
   String description = "";
   final String _localisation="";
   final String _name="";
-
+/*
   Future<void> _addImageUrlsToFirestore() async {
   final firestoreInstance = FirebaseFirestore.instance;
   for (final url in _imageUrls) {
@@ -84,16 +84,39 @@ class _RecommandationState extends State<Recommandation> with SingleTickerProvid
         'name': _name
       });
     }
-    final document = await FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser!.uid).get();
+   /*final document = await FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser!.uid).get();
       if (document.exists && document.data()!.containsKey('créérVoyage')) {
           
         
       } else {
-        print('field  doesnt exist');
-      }
+        //print('field  doesnt exist');
+      }*/
 
   }
+}*/
+Future<void> _addImageUrlsToFirestore() async {
+  final firestoreInstance = FirebaseFirestore.instance;
+  for (final url in _imageUrls) {
+    // Check if a document with the same URL already exists
+    final snapshot = await firestoreInstance
+        .collection('destination')
+        .where('url', isEqualTo: url)
+        .limit(1)
+        .get();
+
+    if (snapshot.docs.isEmpty) {
+      // Add the new document to the collection
+      await firestoreInstance.collection('destination').add({
+        'url': url,
+        'description': description,
+        'localisation': _localisation,
+        'name': _name,
+      });
+    }
+  }
 }
+
+
 
   @override
 Widget build(BuildContext context) {
@@ -168,7 +191,53 @@ Widget build(BuildContext context) {
                   ),
                 ),
                 const SizedBox(height: 5),
-                
+       /*    FutureBuilder<QuerySnapshot>(
+  future: FirebaseFirestore.instance
+      .collection('destination')
+      .where('url', isEqualTo: imageUrl)
+      .get(),
+  builder: (context, snapshot) {
+    if (!snapshot.hasData || snapshot.data == null || snapshot.data!.docs.isEmpty) {
+      return const SizedBox.shrink();
+    }
+
+    final doc = snapshot.data!.docs.first;
+    final data = doc.data() as Map<String, dynamic>;
+    final name = data['name'];
+    final localisation = data['localisation'];
+
+    return Positioned(
+      left: 5,
+      bottom: 15,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            name,
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+              color: Colors.white,
+            ),
+          ),
+          Row(
+            children: [
+              const Icon(Icons.location_pin, size: 18, color: Colors.white),
+              Text(
+                localisation,
+                style: const TextStyle(
+                  fontSize: 16,
+                  color: Colors.white,
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  },
+),*/
+
                 FutureBuilder<DocumentSnapshot>(
                   future: FirebaseFirestore.instance
                       .collection('destination')
@@ -219,6 +288,7 @@ Widget build(BuildContext context) {
                      
                   },
                 ),
+                
               ],
             ),
           ),
@@ -240,4 +310,3 @@ Widget build(BuildContext context) {
   }
 
 }
-  

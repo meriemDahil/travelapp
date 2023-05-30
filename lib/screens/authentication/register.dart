@@ -20,6 +20,7 @@ final FirebaseAuth _auth =FirebaseAuth.instance;
  final _usernameController =TextEditingController();
  final _ageController = TextEditingController();
  String userType='voyageur';
+ bool confirmationStatus =false;
 
  String error ="wrong confirm password";
  Future register() async {
@@ -34,6 +35,7 @@ UserCredential result = await _auth.createUserWithEmailAndPassword(email: _email
   _emailController.text.trim(),
  _usernameController.text.trim(), 
  userType,
+ confirmationStatus,
  );
  
  return user;
@@ -49,13 +51,14 @@ UserCredential result = await _auth.createUserWithEmailAndPassword(email: _email
   else 
   { return false;}
  }
- Future<void> addUserDetails(String firstname, String username, String email,String userType) async {
+ Future<void> addUserDetails(String firstname, String username, String email,String userType, bool confirmationStatus) async {
   final userRef = FirebaseFirestore.instance.collection('users').doc(FirebaseAuth.instance.currentUser!.uid); // creates a new document with a random ID
   await userRef.set({
     "firstname": firstname,
     "email": email,
     "username": username,
     'userType': userType,
+    'confirmationStatus': confirmationStatus
   }, SetOptions(merge: true)); // merges the new data with any existing data in the document
 }
 
@@ -236,7 +239,10 @@ UserCredential result = await _auth.createUserWithEmailAndPassword(email: _email
                       const SizedBox(height: 15.0,),
                        Padding(padding: const  EdgeInsets.symmetric(horizontal: 25.0),
                           child:GestureDetector(
-                            onTap: (){userType='partenaire';},
+                           onTap: () async {
+                            userType = 'partenaire';
+                            
+                          },
                             child: Container(
                             padding:   const EdgeInsets.all(10.0),
                              
@@ -250,6 +256,7 @@ UserCredential result = await _auth.createUserWithEmailAndPassword(email: _email
                                 letterSpacing: 0.8,
                               
                               ),
+                              
                               
                               ),
                                         ),

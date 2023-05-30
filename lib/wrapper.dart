@@ -2,6 +2,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:travel_app/admin/admin.dart';
+import 'package:travel_app/admin/confirmPar.dart';
 import 'package:travel_app/partenaire/partenaire.dart';
 import 'package:travel_app/screens/authentication/authentication.dart';
 import 'package:travel_app/screens/home/home.dart';
@@ -31,6 +33,9 @@ class Wrapper extends StatelessWidget {
                     return Home();
                   } else if (userType == 'partenaire') {
                     return ParCamping();
+                  }
+                  else if (userType == 'admin') {
+                    return Admin();
                   } else {
                     return Text('User type not found');
                   }
