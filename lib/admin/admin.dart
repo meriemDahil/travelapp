@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:travel_app/admin/ajouterPub.dart';
+import 'package:travel_app/admin/userlistpage.dart';
 import 'package:travel_app/screens/home/profilUser.dart';
 
 import 'confirmPar.dart';
@@ -20,6 +21,7 @@ class _AdminState extends State<Admin> {
  final screens = [
     ConfirmPar(), // Replace with the appropriate widget
     AjouterPub(),
+    UserListPage(),
   ];
   @override
   Widget build(BuildContext context) {
@@ -32,10 +34,7 @@ class _AdminState extends State<Admin> {
         ),
         backgroundColor: Color.fromARGB(255, 167, 211, 255),
        
-        title: const Text(
-          'Admin Panel',
-          style: TextStyle(color: Colors.black),
-        ),
+        title: const Text('Nguidik  Admin',style: TextStyle(color: Color.fromARGB(255, 0, 6, 30),fontFamily : 'Lobster',letterSpacing: 0.7),),
         centerTitle: true,
         elevation: 0.0,
         actions: [
@@ -72,6 +71,10 @@ class _AdminState extends State<Admin> {
           BottomNavigationBarItem(
             icon: Icon(Icons.add),
             label: 'publier',
+          ),
+           BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'liste utilisateurs',
           ),
         ],
       ),

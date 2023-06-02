@@ -71,7 +71,7 @@ class _ConfirmParState extends State<ConfirmPar> {
         future: fetchPendingPartnerAccounts(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           } else if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
@@ -90,7 +90,7 @@ class _ConfirmParState extends State<ConfirmPar> {
                     child: Container(
                       height: 150,
                       width: MediaQuery.of(context).size.width,
-                      padding: EdgeInsets.all(5),
+                      padding: const EdgeInsets.all(5),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
@@ -104,8 +104,8 @@ class _ConfirmParState extends State<ConfirmPar> {
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
-                                    CircleAvatar(radius: 20,backgroundImage: NetworkImage('https://img.myloview.com/posters/default-avatar-profile-in-trendy-style-for-social-media-user-icon-400-228654852.jpg'),),
-                                     SizedBox(width: 15),
+                                    const CircleAvatar(radius: 20,backgroundImage: NetworkImage('https://img.myloview.com/posters/default-avatar-profile-in-trendy-style-for-social-media-user-icon-400-228654852.jpg'),),
+                                     const SizedBox(width: 15),
                                     Column(
                                       children: [
                                     Text(
@@ -116,7 +116,7 @@ class _ConfirmParState extends State<ConfirmPar> {
                                        
                                       ),
                                     ),
-                                    SizedBox(height: 7),
+                                    const SizedBox(height: 7),
                                       Text(
                                       'Nom d\' utilisateur: $firstname',
                                       style: const TextStyle(
@@ -135,17 +135,17 @@ class _ConfirmParState extends State<ConfirmPar> {
                               
                             ],
                           ),
-                        SizedBox(width: 30,height: 50,),
+                        const SizedBox(width: 30,height: 50,),
                             Align(alignment: Alignment.bottomLeft,
                               child: ElevatedButton(onPressed: ()async{ await FirebaseFirestore.instance
                                                           .collection('users')
                                                           .doc(accountSnapshot.id)
                                                           .update({'confirmationStatus': true});
-                                                            await Future.delayed(Duration(seconds: 2));
+                                                            await Future.delayed(const Duration(seconds: 2));
                                                           setState(() {});},
-                                                          child: Text('confirmer',style: TextStyle(color: Colors.black,letterSpacing: 0.7),),
-                                                          style: ElevatedButton.styleFrom(backgroundColor:  Color.fromARGB(255, 167, 211, 255),
+                                                          style: ElevatedButton.styleFrom(backgroundColor:  const Color.fromARGB(255, 167, 211, 255),
                                                           ),
+                                                          child: const Text('confirmer',style: TextStyle(color: Colors.black,letterSpacing: 0.7),),
                                                           ),
                             ),
                         ],
@@ -158,7 +158,7 @@ class _ConfirmParState extends State<ConfirmPar> {
             );
           } else {
             // Display a message when there are no pending partner accounts
-            return Center(
+            return const Center(
               child: Text('No pending partner accounts.'),
             );
           }

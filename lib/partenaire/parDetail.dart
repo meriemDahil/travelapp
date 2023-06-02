@@ -8,20 +8,20 @@ class ParDetails extends StatefulWidget {
   final String description;
   final String imageurl;
   final String name;
-  final String location; 
+  final String location;
   final String price;
   final String type;
- final String docId; 
+  final String docId;
 
   ParDetails({
-    Key? key, 
-    required this.description, 
-    required this.imageurl, 
-    required this.location, 
-    required this.name, 
+    Key? key,
+    required this.description,
+    required this.imageurl,
+    required this.location,
+    required this.name,
     required this.price,
     required this.type,
-     required this.docId,
+    required this.docId,
   }) : super(key: key);
 
   @override
@@ -29,41 +29,44 @@ class ParDetails extends StatefulWidget {
 }
 
 class _ParDetailsState extends State<ParDetails> {
+  late final String com;
+  final commentaire = TextEditingController();
+  final user = FirebaseAuth.instance.currentUser!.email;
 
- late final String com  ;
- final  commentaire = TextEditingController() ;
- final user =FirebaseAuth.instance.currentUser!.email;
- 
+  Future<void> addUserDetails(String com, String userId) async {
+    final id = widget.docId;
+    final parentDocRef = FirebaseFirestore.instance.collection(widget.type).doc(id);
 
-Future<void> addUserDetails(String com, String userId) async {
-  final id = widget.docId;
-  final parentDocRef = FirebaseFirestore.instance.collection(widget.type).doc(id);
-  
-
-  final subCollectionRef = parentDocRef.collection('commentaire');
-  await subCollectionRef.add({
-    'comment': com,
-        'userId': userId,
-        'timestamp': FieldValue.serverTimestamp(),
-  });
-}
-late bool isLiked=false;
-late int likeCount=likeCount;
-
-
-@override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-      print("helllllllllllllllllllo");
- 
+    final subCollectionRef = parentDocRef.collection('commentaire');
+    await subCollectionRef.add({
+      'comment': com,
+      'userId': userId,
+      'timestamp': FieldValue.serverTimestamp(),
+    });
   }
 
-void dispose() {
-   
+  late bool isLiked = false;
+  late int likeCount = likeCount;
+
+  Future<QuerySnapshot> fetchPendingPartnerAccounts() async {
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+        .collection(widget.type)
+        .doc(widget.docId)
+        .collection('commentaire')
+        .get();
+
+    return querySnapshot;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    print("hello");
+  }
+
+  void dispose() {
     super.dispose();
-   // commentaire.dispose();
-  
+    commentaire.dispose();
   }
 
   @override
@@ -74,146 +77,237 @@ void dispose() {
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
-      body: SingleChildScrollView(
-        child: Container(
-          height: double.maxFinite,
-          width: double.maxFinite,
-          child: Stack(
+      body: Container(
+        height: double.maxFinite,
+        width: double.maxFinite,
+        child: Stack(
             children: [
               Positioned(
                 child: Container(
                   height: 320,
-                  width: double.maxFinite,
-                  decoration: const BoxDecoration(),
-                  child:  Image.network(widget.imageurl, fit: BoxFit.fill),
+                  width: double.infinity,
+                  decoration: BoxDecoration(),
+                  child: Image.network(widget.imageurl, fit: BoxFit.fill),
                 ),
               ),
               Positioned(
                 top: 300,
-                child: Container(
-                  height: 300,
-                  width: MediaQuery.of(context).size.width,
-                  decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(10),
-                      topRight: Radius.circular(10),
-                    ),
-                    color: Colors.white,
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(13.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              widget.name,
-                              style: const TextStyle(
-                                color: Colors.black,
-                                fontSize: 20.0,
-                                fontWeight: FontWeight.w500,
-                                letterSpacing: 0.7,
-                              ),
-                            ),
-                           LikeButton(
-                                size: 40.0,
-                                circleColor:
-                                    CircleColor(start: Colors.redAccent[400]!, end: Colors.redAccent[700]!),
-                                bubblesColor: BubblesColor(
-                                  dotPrimaryColor: Colors.redAccent[700]!,
-                                  dotSecondaryColor: Colors.redAccent[400]!,
-                                ),
-                                likeBuilder: (bool isLiked) {
-                                  return Icon(
-                                    Icons.favorite,
-                                    color: isLiked ? Colors.redAccent[700] : Colors.grey,
-                                    size: 30.0,
-                                  );
-                                },
-                                likeCount: 13,
-                                countBuilder: (int? count, bool isLiked, String text) {
-                                  var color = isLiked ? Colors.redAccent[700] : Colors.grey;
-                                  Widget result;
-                                  if (count == 0) {
-                                    result = Text(
-                                      "love",
-                                      style: TextStyle(color: color),
-                                    );
-                                  } else {
-                                    result = Text(
-                                      text,
-                                      style: TextStyle(color: color),
-                                    );
-                                  }
-                                  return result;
-                                },    
-                           ),
-                          ],
-                        ),
-                        const SizedBox(height: 5.0,),
-                        Row(
-                          children: [
-                            const Icon(Icons.location_pin),
-                            Text(
-                              widget.location,
-                              style: const TextStyle(
-                                color: Color.fromARGB(255, 4, 129, 56),
-                                fontSize: 20.0,
-                                fontWeight: FontWeight.w500,
-                                letterSpacing: 0.7,
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 10.0,),
-                        Text(
-                          widget.description,
-                          style: const TextStyle(
-                            color: Colors.black87,
-                            fontSize: 14.0,
-                            fontWeight: FontWeight.w500,
-                            letterSpacing: 0.7,
-                          ),
-                        ),
-                        const SizedBox(height: 20,),
-                          Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                      child:Container(
-                        height: 150,
-                      decoration: BoxDecoration(color: Colors.transparent,
-                          border: Border.all(color: Colors.grey.shade800,),
-                           borderRadius: BorderRadius.circular(12),
+                child: SingleChildScrollView(
+                  child: Container(
+                    height: 400,
+                    width: MediaQuery.of(context).size.width,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(10),
+                        topRight: Radius.circular(10),
                       ),
-                          
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                                child: TextField(
-                                 controller: commentaire,
-                                  
-                                  decoration: const InputDecoration(
-                                    hintText: 'commentaires',
-                                     border: InputBorder.none,
-                                    
-                                    
+                      color: Colors.white,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(13.0),
+                      child: SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    widget.name,
+                                    style: const TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 20.0,
+                                      fontWeight: FontWeight.w500,
+                                      letterSpacing: 0.7,
+                                    ),
                                   ),
-                                  onSubmitted: (value) {
-                                    com = commentaire.text.trim();
-                                     print(widget.type);
-                                      
-                                    addUserDetails(com,user!);
-                                    
+                                ),
+                                LikeButton(
+                                  size: 40.0,
+                                  circleColor: CircleColor(start: Colors.redAccent[400]!, end: Colors.redAccent[700]!),
+                                  bubblesColor: BubblesColor(
+                                    dotPrimaryColor: Colors.redAccent[700]!,
+                                    dotSecondaryColor: Colors.redAccent[400]!,
+                                  ),
+                                  likeBuilder: (bool isLiked) {
+                                    return Icon(
+                                      Icons.favorite,
+                                      color: isLiked ? Colors.redAccent[700] : Colors.grey,
+                                      size: 30.0,
+                                    );
                                   },
-                                 
-                      
-                            ) ,
-                          ),
-                          ),
-      
+                                  likeCount: 57,
+                                  countBuilder: (int? count, bool isLiked, String text) {
+                                    var color = isLiked ? Colors.redAccent[700] : Colors.grey;
+                                    Widget result;
+                                    if (count == 0) {
+                                      result = Text(
+                                        "love",
+                                        style: TextStyle(color: color),
+                                      );
+                                    } else {
+                                      result = Text(
+                                        text,
+                                        style: TextStyle(color: color),
+                                      );
+                                    }
+                                    return result;
+                                  },
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 5.0,
+                            ),
+                            Row(
+                              children: [
+                                const Icon(Icons.location_pin),
+                                Expanded(
+                                  child: Text(
+                                    widget.location,
+                                    style: const TextStyle(
+                                      color: Color.fromARGB(255, 4, 129, 56),
+                                      fontSize: 20.0,
+                                      fontWeight: FontWeight.w500,
+                                      letterSpacing: 0.7,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 10.0,
+                            ),
+                            Text(
+                              widget.description,
+                              style: const TextStyle(
+                                color: Colors.black87,
+                                fontSize: 14.0,
+                                fontWeight: FontWeight.w500,
+                                letterSpacing: 0.7,
+                              ),
+                            ),
+                          const SizedBox(   height: 30,),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 0.0),
+                              child: Container(
+                                height:120,
+                                decoration: BoxDecoration(
+                                  color: Colors.transparent,
+                                  border: Border.all(
+                                    color: Colors.grey.shade800,
+                                  ),
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                                  child: TextField(
+                                    controller: commentaire,
+                                    decoration: const InputDecoration(
+                                      hintText: 'Ajouter un commentaire',
+                                      border: InputBorder.none,
+                                    ),
+                                    onSubmitted: (value) {
+                                      com = commentaire.text.trim();
+                                      print(widget.type);
+                                      addUserDetails(com, user!);
+                                    },
+                                  ),
+                                ),
+                              ),
+                            ),
+                           
+                           // SizedBox(height: 0,),
+                            FutureBuilder<QuerySnapshot>(
+                              future: fetchPendingPartnerAccounts(),
+                              builder: (context, snapshot) {
+                                if (snapshot.connectionState == ConnectionState.waiting) {
+                                  return const Center(
+                                    child: CircularProgressIndicator(),
+                                  );
+                                } else if (snapshot.hasData && snapshot.data!.docs.isNotEmpty) {
+                                  // Display the list of non-confirmed partner accounts
+                                  return Padding(
+                                    padding : EdgeInsets.all(4),
+                                    child: ListView.builder(
+                                      shrinkWrap:true,
+                                      //physics: const NeverScrollableScrollPhysics(),
+                                      itemCount: snapshot.data!.docs.length,
+                                      itemBuilder: (context, index) {
+                                        DocumentSnapshot accountSnapshot = snapshot.data!.docs[index];
+                                        Map<String, dynamic> accountData =
+                                            accountSnapshot.data() as Map<String, dynamic>;
+                                        String comment = accountData['comment'];
+                                        String userId = accountData['userId'];
+                                                        
+                                        return Card(
+                                          child: SizedBox(
+                                            height: 80,
+                                            //width: MediaQuery.of(context).size.width,
+                                           // padding: const EdgeInsets.all(5),
+                                            child: SingleChildScrollView(
+                                              child: Column(
+                                                
+                                            //  mainAxisAlignment: MainAxisAlignment.start,
+                                                children: [
+                                                  
+                                                  Padding(
+                                                    padding: const EdgeInsets.all(2),
+                                                    child: Column(
+                                                      children: [
+                                                        Row(
+                                                          mainAxisAlignment: MainAxisAlignment.start,
+                                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                                          children: [
+                                                            CircleAvatar(backgroundImage :NetworkImage('https://www.shutterstock.com/image-vector/default-avatar-profile-flat-icon-260nw-1742219921.jpg'),radius: 20,),
+                                                            const SizedBox(width: 10,height: 20,),
+                                                              Text(userId,
+                                                              style: const TextStyle(
+                                                                color: Colors.black54,
+                                                                fontSize: 13.0,
+                                                                fontWeight: FontWeight.w500,
+                                                              ),),
+                                                          ]),
+                                                                   Padding(
+                                                                     padding: const EdgeInsets.all(7.0),
+                                                                     child: Text(
+                                                                                 comment,
+                                                                                 style: const TextStyle(
+                                                                                 color: Colors.black,
+                                                                                 fontSize: 15.0,
+                                                                                 fontWeight: FontWeight.w500,
+                                                                                ),
+                                                                         ),
+                                                                   ),
+                                                                ],
+                                                              ),
+                                                    
+                                                       
+                                                     
+                                    
+                                                  ),
+                                                  
+                                                        
+                                                ],
+                                                
+                                              ),
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  );
+                                } else {
+                                  return const Center(
+                                    child: Text('Aucun commentaire trouvé.'),
+                                  );
+                                }
+                              },
+                            ),
+                          ],
                         ),
-                     
-                      ],
+                      ),
                     ),
                   ),
                 ),
@@ -221,7 +315,7 @@ void dispose() {
             ],
           ),
         ),
-      ),
+      
     );
   }
 }

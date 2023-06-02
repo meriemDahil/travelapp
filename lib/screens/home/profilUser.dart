@@ -37,9 +37,9 @@ class _profilUserState extends State<profilUser> {
         {Navigator.pop(context);},
         ),
         backgroundColor : Colors.white, 
-        title: const Text('Travel App',style: TextStyle(color: Colors.black),),
+        title:  const Text('Nguidik',style: TextStyle(color: Color.fromARGB(255, 0, 6, 30),fontFamily : 'Lobster',letterSpacing: 0.7),),
         centerTitle: true,
-        elevation: 0.0,
+        elevation: 2.0,
       ),
 
       body:SingleChildScrollView(
@@ -49,7 +49,7 @@ class _profilUserState extends State<profilUser> {
             child: Column(children:  [
             Stack(
               children: [ const CircleAvatar(radius:45.0,
-                backgroundImage:NetworkImage("https://lastfm.freetls.fastly.net/i/u/770x0/13f370ec1fcca1dca240abb85fcbb914.jpg"),
+                backgroundImage:NetworkImage("https://www.shutterstock.com/image-vector/default-avatar-profile-flat-icon-260nw-1742219921.jpg"),
                 ),
               
                Positioned(
@@ -78,13 +78,13 @@ class _profilUserState extends State<profilUser> {
                 ),
             ),
             const Divider(),
-            ListProfile(title: "mes voyage", icon: Icons.travel_explore, onPressed:(){}, endicon:true, textcolor: Colors.black),
+            ListProfile(title: "Mes voyage", icon: Icons.travel_explore, onPressed:(){}, endicon:true, textcolor: Colors.black),
             ListProfile(title: "Profile", icon: Icons.person, onPressed:(){}, endicon:true, textcolor: Colors.black),
             ListProfile(title: "Crée un voyage ", icon: Icons.luggage, onPressed:(){
               Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => const CreVoyage()));
             }, endicon:true, textcolor: Colors.black),
             ListProfile(title: "Notification ", icon: Icons.notifications, onPressed:(){}, endicon:true, textcolor: Colors.black),
-            ListProfile(title: "Log out", icon: Icons.logout,
+            ListProfile(title: "Se déconnecter", icon: Icons.logout,
              onPressed:() async
             { 
                await _auth.signOut();

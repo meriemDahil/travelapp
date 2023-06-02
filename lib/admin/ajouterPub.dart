@@ -87,13 +87,13 @@ class _AjouterPubState extends State<AjouterPub> {
               children: <Widget>[
                  
                 _imageFile == null
-                    ? const Text('No image selected.')
+                    ? const Text('Aucune image sélectionnée.',style: TextStyle(color: Colors.white),)
                     : Image.file(_imageFile!),
                 const SizedBox(height: 20),
                 ElevatedButton(
                   onPressed: getImage,
-                  style:  ElevatedButton.styleFrom(backgroundColor: const Color.fromARGB(255, 1, 22, 59),),
-                  child: const Text('choisir image'),
+                  style:  ElevatedButton.styleFrom(backgroundColor: const Color.fromARGB(255, 223, 243, 255),),
+                  child: const Text('Choisir image',style: TextStyle(color: Colors.black),),
                 ),
                 
                  const SizedBox(height: 10.0),
@@ -104,11 +104,11 @@ class _AjouterPubState extends State<AjouterPub> {
                     children: [
                       TextFormField(
                         decoration: const InputDecoration(
-                          labelText: 'name',
+                          labelText: 'nom',
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please enter name';
+                            return 'Veuillez entrer le nom';
                           }
                           return null;
                         },
@@ -124,7 +124,7 @@ class _AjouterPubState extends State<AjouterPub> {
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please enter location';
+                            return 'Veuillez entrer la localisation';
                           }
                           return null;
                         },
@@ -140,7 +140,7 @@ class _AjouterPubState extends State<AjouterPub> {
                         ),
                                             validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please enter description';
+                        return 'Veuillez entrer la description';
                       }
                       return null;
                     },
@@ -157,8 +157,8 @@ class _AjouterPubState extends State<AjouterPub> {
                         _uploadImage();
                       }
                     },
-                    style:  ElevatedButton.styleFrom(backgroundColor: const Color.fromARGB(255, 1, 22, 59),),
-                    child: const Text('ajouter publication'),
+                    style:  ElevatedButton.styleFrom(backgroundColor: Color.fromARGB(255, 223, 243, 255),),
+                    child: const Text('ajouter publication',style: TextStyle(color: Colors.black),),
                   ),
                 ],
               ),

@@ -25,15 +25,15 @@ class _ParCampingState extends State<ParCamping> {
       appBar: AppBar(
         leading: const Icon(
           Icons.menu,
-          color: Colors.black,
+          color: Color.fromARGB(255, 4, 0, 71),
         ),
-        backgroundColor: Colors.white,
+        backgroundColor:Color.fromARGB(255, 223, 243, 255),
         title: const Text(
-          'Travel App',
-          style: TextStyle(color: Colors.black),
+          'Nguidik',
+          style: TextStyle(color: Colors.black,fontFamily: 'Lobster'),
         ),
         centerTitle: true,
-        elevation: 0.0,
+        elevation:  1.0,
         actions: [
           TextButton(
               onPressed: () async {
@@ -48,7 +48,7 @@ class _ParCampingState extends State<ParCamping> {
               },
               child: const Icon(
                 Icons.person,
-                color: Colors.black,
+                color: Color.fromARGB(255, 4, 0, 71),
               ))
         ],
       ),
@@ -60,10 +60,13 @@ class _ParCampingState extends State<ParCamping> {
             this.index = index;
           });
         },
+        selectedItemColor: Color.fromARGB(255, 0, 0, 0),
+        unselectedItemColor: Color.fromARGB(255, 148, 145, 137),
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'services',
+           
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.add),
@@ -74,7 +77,9 @@ class _ParCampingState extends State<ParCamping> {
             label: 'messages',
           ),
         ],
+        
       ),
+     
     );
   }
 }

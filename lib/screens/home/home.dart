@@ -40,7 +40,7 @@ void dispose() {
           
 
             backgroundColor : Colors.white, 
-            title: const Text('Travel App',style: TextStyle(color: Colors.black),),
+            title: const Text('Nguidik',style: TextStyle(color: Color.fromARGB(255, 0, 6, 30),fontFamily : 'Lobster',letterSpacing: 0.7),),
            centerTitle: true,
             elevation: 0.0,
             actions: [
@@ -52,7 +52,7 @@ void dispose() {
                    utilisateur =user.email!;
                    debugPrint(utilisateur);*/
                 },
-                child: const Icon(Icons.person, color: Colors.black,)
+                child: const Icon(Icons.person, color: Color.fromARGB(255, 0, 6, 30),)
                 ),
                 ],
           bottom: TabBar(

@@ -89,7 +89,7 @@ class _AjouterServiceState extends State<AjouterService> {
 
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                  const Text('Dans quelle section voulez-vous la partager ? ', textAlign: TextAlign.justify,),
+                  const Text('Dans quelle section voulez-vous la partager ? ', textAlign: TextAlign.justify,style: TextStyle(fontSize: 18,fontWeight: FontWeight.w400),),
                   const SizedBox(height: 10.0),
                 Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -101,8 +101,8 @@ class _AjouterServiceState extends State<AjouterService> {
                     
                      
                     },
-                    style:  ElevatedButton.styleFrom(backgroundColor:  Colors.blueAccent,),
-                    child: const Icon(Icons.directions_bus_rounded),
+                    style:  ElevatedButton.styleFrom(backgroundColor:  Color.fromARGB(255, 200, 220, 255),),
+                    child: const Icon(Icons.directions_bus_rounded,color: Colors.black,),
                   ),
                      ElevatedButton(
                     onPressed: () {
@@ -110,16 +110,16 @@ class _AjouterServiceState extends State<AjouterService> {
                     type='Camping';
                      
                     },
-                    style:  ElevatedButton.styleFrom(backgroundColor:  const Color.fromARGB(255, 145, 249, 149),),
-                    child: const Icon(Icons.forest),
+                    style:  ElevatedButton.styleFrom(backgroundColor:  Color.fromARGB(255, 194, 255, 185),),
+                    child: const Icon(Icons.forest,color: Colors.black,),
                   ),
                      ElevatedButton(
                     onPressed: () {
                      section ='logement';
                      type ='logement';
                     },
-                    style:  ElevatedButton.styleFrom(backgroundColor:  const Color.fromARGB(255, 85, 67, 7),),
-                    child: const Icon(Icons.home),
+                    style:  ElevatedButton.styleFrom(backgroundColor:  Color.fromARGB(255, 122, 93, 0),),
+                    child: const Icon(Icons.home,),
                   ),
                      ElevatedButton(
                     onPressed: () {
@@ -127,26 +127,26 @@ class _AjouterServiceState extends State<AjouterService> {
                       type = 'agenceDeVoyage';
                      
                     },
-                    style:  ElevatedButton.styleFrom(backgroundColor:  const Color.fromARGB(255, 250, 104, 158),),
-                    child: const Text('   agence \n de voyage'),
+                    style:  ElevatedButton.styleFrom(backgroundColor:  Color.fromARGB(255, 255, 192, 192),),
+                    child: const Text('   agence \n de voyage',style: TextStyle(color: Colors.black,letterSpacing: 0.7),),
                   ),
                     ElevatedButton(
                     onPressed: () {
                      section ='autre';
                      type ='autre';
                     },
-                    style:  ElevatedButton.styleFrom(backgroundColor:  const Color.fromARGB(255, 189, 219, 16),),
+                    style:  ElevatedButton.styleFrom(backgroundColor:  Color.fromARGB(255, 130, 69, 130),),
                     child: const Text('autre'),
                   ),
                  ],),
                 _imageFile == null
-                    ? const Text('No image selected.')
+                    ? const Text('Aucune image sélectionnée.',style: TextStyle(fontSize: 18,fontWeight: FontWeight.w400),)
                     : Image.file(_imageFile!),
                 const SizedBox(height: 20),
                 ElevatedButton(
                   onPressed: getImage,
-                  style:  ElevatedButton.styleFrom(backgroundColor: const Color.fromARGB(255, 1, 22, 59),),
-                  child: const Text('Pick Image'),
+                  style:  ElevatedButton.styleFrom(backgroundColor: Color.fromARGB(255, 188, 229, 255),minimumSize: Size(40, 40)),
+                  child: const Text('choisir image',style: TextStyle(color: Colors.black,fontSize: 16, letterSpacing: 0.6),),
                 ),
                 
                  const SizedBox(height: 10.0),
@@ -157,11 +157,11 @@ class _AjouterServiceState extends State<AjouterService> {
                     children: [
                       TextFormField(
                         decoration: const InputDecoration(
-                          labelText: 'name',
+                          labelText: 'nom',
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please enter name';
+                            return 'Veuillez entrer votre nom';
                           }
                           return null;
                         },
@@ -173,7 +173,7 @@ class _AjouterServiceState extends State<AjouterService> {
                       ),
                       TextFormField(
                       decoration:const InputDecoration(
-                        labelText: 'Phone Number',
+                        labelText: 'numéro téléphone',
                       ),
                       keyboardType: TextInputType.phone,
                       validator: (value) {
@@ -186,11 +186,11 @@ class _AjouterServiceState extends State<AjouterService> {
                     ),
                       TextFormField(
                         decoration: const InputDecoration(
-                          labelText: 'Price',
+                          labelText: 'Prix',
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please enter price';
+                            return 'Veuillez entrer le prix';
                           }
                           return null;
                         },
@@ -202,11 +202,11 @@ class _AjouterServiceState extends State<AjouterService> {
                       ),
                       TextFormField(
                         decoration: const InputDecoration(
-                          labelText: 'Location',
+                          labelText: 'Localisation',
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please enter location';
+                            return 'Veuillez entrer votre localisation';
                           }
                           return null;
                         },
@@ -222,7 +222,7 @@ class _AjouterServiceState extends State<AjouterService> {
                         ),
                                             validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please enter description';
+                        return 'Veuillez entrer une description';
                       }
                       return null;
                     },
@@ -241,8 +241,8 @@ class _AjouterServiceState extends State<AjouterService> {
                         _uploadImage();
                       }
                     },
-                    style:  ElevatedButton.styleFrom(backgroundColor: const Color.fromARGB(255, 1, 22, 59),),
-                    child: const Text('Upload Service'),
+                    style:  ElevatedButton.styleFrom(backgroundColor:  Color.fromARGB(255, 188, 229, 255),minimumSize: Size(40, 40)),
+                    child: const Text('Partager',style: TextStyle(color: Colors.black,fontSize: 16, letterSpacing: 0.6),),
                   ),
                 ],
               ),

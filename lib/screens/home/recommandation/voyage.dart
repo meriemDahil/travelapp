@@ -49,7 +49,7 @@ class _VoyageState extends State<Voyage> {
         {Navigator.pop(context);},
         ),
     
-      title: const Text('Travel App',style: TextStyle(color: Colors.black),),
+      title: const Text('Nguidik',style: TextStyle(color: Color.fromARGB(255, 0, 6, 30),fontFamily : 'Lobster',letterSpacing: 0.7),),
            centerTitle: true,
             elevation: 0.0,
             actions: [
