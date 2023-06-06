@@ -109,7 +109,7 @@ Future<void> _addImageUrlsToFirestore() async {
       await firestoreInstance.collection('destination').add({
         'url': url,
         'description': description,
-        'localisation': _localisation,
+        'location': _localisation,
         'name': _name,
       });
     }
@@ -148,7 +148,7 @@ Widget build(BuildContext context) {
                   final description = doc.get('description');
                   final imageurl = doc.get('url');
                   final name = doc.get('name');
-                  final localisation = doc.get('localisation');
+                  final localisation = doc.get('location');
                 
     
                   Navigator.push(
@@ -157,7 +157,7 @@ Widget build(BuildContext context) {
                       builder: (context) => DetailScreen(
                         description: description,
                         imageurl: imageurl,
-                        name: name,
+                        name: name, 
                         localisation: localisation,
                       ),
                     ),
@@ -253,7 +253,7 @@ Widget build(BuildContext context) {
                     }
                     final data = snapshot.data!.data() as Map<String, dynamic>;
                     final name = data['name'];
-                    final localisation = data['localisation'];
+                    final location = data['location'];
                     
                     return Positioned(
                       left: 5,
@@ -273,7 +273,7 @@ Widget build(BuildContext context) {
                             children: [
                               const Icon(Icons.location_pin,size: 18,color: Colors.white,),
                               Text(
-                                localisation,
+                                location,
                                 style: const TextStyle(
                                   fontSize: 16,
                                   color: Colors.white,
