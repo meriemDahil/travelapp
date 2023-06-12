@@ -123,20 +123,20 @@ class _AjouterServiceState extends State<AjouterService> {
                   ),
                      ElevatedButton(
                     onPressed: () {
-                      section = 'agenceDeVoyage';
-                      type = 'agenceDeVoyage';
+                      section = 'voyageOrganisé';
+                      type = 'voyageOrganisé';
                      
                     },
                     style:  ElevatedButton.styleFrom(backgroundColor:  Color.fromARGB(255, 255, 192, 192),),
-                    child: const Text('   agence \n de voyage',style: TextStyle(color: Colors.black,letterSpacing: 0.7),),
+                    child: const Text('   voyage \nOrganisé',style: TextStyle(color: Colors.black,letterSpacing: 0.7),),
                   ),
                     ElevatedButton(
                     onPressed: () {
-                     section ='autre';
-                     type ='autre';
+                     section ='particuliers';
+                     type ='particuliers';
                     },
                     style:  ElevatedButton.styleFrom(backgroundColor:  Color.fromARGB(255, 130, 69, 130),),
-                    child: const Text('autre'),
+                    child: const Text('Particulier'),
                   ),
                  ],),
                 _imageFile == null
@@ -202,7 +202,7 @@ class _AjouterServiceState extends State<AjouterService> {
                       ),
                       TextFormField(
                         decoration: const InputDecoration(
-                          labelText: 'Localisation',
+                          labelText: 'Localisation/destination',
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {

@@ -17,25 +17,15 @@ class _AfterCreationState extends State<AfterCreation> {
     // Retrieve camping data
     QuerySnapshot campingSnapshot = await FirebaseFirestore.instance
         .collection('Camping')
-        
+        .where('location' , isEqualTo: 'Béjaia')
         .get();
     List<dynamic> campingData =
         campingSnapshot.docs.map((doc) => doc.data()).toList();
     combinedData.addAll(campingData);
 
-  /*  // Retrieve destination data
-    QuerySnapshot destinationSnapshot = await FirebaseFirestore.instance
-        .collection('destination')
-       
-        .get();
-    List<dynamic> destinationData =
-        destinationSnapshot.docs.map((doc) => doc.data()).toList();
-    combinedData.addAll(destinationData);
-*/
-    // Retrieve logement data
     QuerySnapshot logementSnapshot = await FirebaseFirestore.instance
         .collection('logement')
-      
+        .where('location' , isEqualTo: 'Béjaia')
         .get();
     List<dynamic> logementData =
         logementSnapshot.docs.map((doc) => doc.data()).toList();
@@ -43,8 +33,7 @@ class _AfterCreationState extends State<AfterCreation> {
     // Retrieve destination data
     QuerySnapshot destinationSnapshot = await FirebaseFirestore.instance
         .collection('destination')
-        .where('location' , isEqualTo: 'Oran')
-      
+        .where('location' , isEqualTo: 'Béjaia')
         .get();
     List<dynamic> destinationData =
         destinationSnapshot.docs.map((doc) => doc.data()).toList();
@@ -54,11 +43,26 @@ class _AfterCreationState extends State<AfterCreation> {
     // Retrieve transport data
     QuerySnapshot transportSnapshot = await FirebaseFirestore.instance
         .collection('transport')
-        
+        .where('location' , isEqualTo: 'Béjaia')
         .get();
     List<dynamic> transportData =
         transportSnapshot.docs.map((doc) => doc.data()).toList();
     combinedData.addAll(transportData);
+
+ QuerySnapshot voyageOrganiseSnapshot = await FirebaseFirestore.instance
+        .collection('voyageOrganisé')
+        .where('location' , isEqualTo: 'Béjaia')
+        .get();
+    List<dynamic> VoyageOraganiseData =
+      voyageOrganiseSnapshot.docs.map((doc) => doc.data()).toList();
+    combinedData.addAll(VoyageOraganiseData);
+QuerySnapshot particuliersSnapshot = await FirebaseFirestore.instance
+        .collection('particuliers')
+        .where('location' , isEqualTo: 'Béjaia')
+        .get();
+    List<dynamic> particuliersData =
+      particuliersSnapshot.docs.map((doc) => doc.data()).toList();
+    combinedData.addAll(particuliersData);
 
     return combinedData;
   }

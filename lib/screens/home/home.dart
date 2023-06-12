@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:travel_app/screens/home/Particuliers.dart';
+import 'package:travel_app/screens/home/VoyageOrganise.dart';
 import 'package:travel_app/screens/home/camping.dart';
 import 'package:travel_app/screens/home/logement.dart';
 import 'package:travel_app/screens/home/profilUser.dart';
@@ -20,7 +22,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin{
   @override
   void initState() { 
     super.initState();
-     _tabController = TabController(length: 4, vsync: this);
+     _tabController = TabController(length: 6, vsync: this);
 
   }
   @override
@@ -68,6 +70,9 @@ void dispose() {
               Tab(text: 'transport',),
               Tab(text: 'Camping' ),
               Tab(text: 'logement',),
+              Tab(text: 'Voyage organisé',),
+              Tab(text: 'Particuliers',),
+
             ]
             ),
            
@@ -82,6 +87,8 @@ void dispose() {
                   const Transport(),
                   const Camping(),
                   Logement(),
+                  const VoyageOraganise(),
+                  const Particuliers(),
         
                 ]),
               ),

@@ -5,12 +5,15 @@ import 'package:flutter/material.dart';
 
 import '../../partenaire/parDetail.dart';
 
-class Logement extends StatefulWidget {
+class Particuliers extends StatefulWidget {
+  const Particuliers({super.key});
+
   @override
-  _logementState createState() => _logementState();
+  State<Particuliers> createState() => _ParticuliersState();
 }
 
-class _logementState extends State<Logement> {
+class _ParticuliersState extends State<Particuliers> {
+ 
  
   final List<String> _imageUrls = [];
 
@@ -28,7 +31,7 @@ class _logementState extends State<Logement> {
       final Reference storageRef = FirebaseStorage.instance.ref();
 
       // Get a reference to the folder containing the images
-      final folderRef = storageRef.child('logement');
+      final folderRef = storageRef.child('particuliers');
 
       // Get a list of all the files in the folder
       final ListResult result = await folderRef.listAll();
@@ -75,7 +78,7 @@ class _logementState extends State<Logement> {
                 debugPrint('true');
                 final firestoreInstance = FirebaseFirestore.instance;
                 final snapshot = await firestoreInstance
-                    .collection('logement')
+                    .collection('particuliers')
                     .where('url', isEqualTo: imageUrl)
                     .get();
     
@@ -140,7 +143,7 @@ class _logementState extends State<Logement> {
                 const SizedBox(height: 5),
                 FutureBuilder<DocumentSnapshot>(
                   future: FirebaseFirestore.instance
-                      .collection('logement')
+                      .collection('particuliers')
                       .where('url', isEqualTo: imageUrl)
                       .get()
                       .then((snapshot) => snapshot.docs.first),

@@ -3,6 +3,7 @@ import 'package:like_button/like_button.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:travel_app/screens/Formulaire.dart';
 
 class ParDetails extends StatefulWidget {
   final String description;
@@ -123,6 +124,8 @@ class _ParDetailsState extends State<ParDetails> {
                                     ),
                                   ),
                                 ),
+                               IconButton(onPressed: (){ Navigator.push(context, MaterialPageRoute(builder :(context)=> const Formulaire(),)); }, icon: Icon(Icons.message,size: 30,   color: Color.fromARGB(255, 191, 191, 191),),),
+                               // IconButton(onPressed: (){ }, icon: const Icon(Icons.message_rounded,size: 30,color: Colors.black54, )),
                                 LikeButton(
                                   size: 40.0,
                                   circleColor: CircleColor(start: Colors.redAccent[400]!, end: Colors.redAccent[700]!),
