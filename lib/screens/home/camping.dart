@@ -239,6 +239,7 @@ class _CampingState extends State<Camping> with TickerProviderStateMixin {
   final String _location="";
   final String _price="";
   final String _type="";
+  final String postedBy="";
 
   final FirebaseAuth _auth =FirebaseAuth.instance;
 
@@ -274,6 +275,7 @@ class _CampingState extends State<Camping> with TickerProviderStateMixin {
                     final name = doc.get('name');
                     final location = doc.get('location');
                       final type= doc.get('type');
+                      final postedBy =doc.get('postedBy');
     
                     Navigator.push(
                       context,
@@ -286,6 +288,8 @@ class _CampingState extends State<Camping> with TickerProviderStateMixin {
                           price: _price,
                           type: type,
                           docId: docId,
+                          postedBy: postedBy,
+
                         ),
                       ),
                     );

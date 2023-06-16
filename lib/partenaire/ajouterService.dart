@@ -58,7 +58,7 @@ class _AjouterServiceState extends State<AjouterService> {
       'location': _location,
       'description': _description,
       'createdAt': FieldValue.serverTimestamp(),
-      'postedBy': user!.uid,
+      'postedBy': user!.email,
       'type': type,
        
     

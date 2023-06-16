@@ -3,6 +3,7 @@ import 'package:like_button/like_button.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:travel_app/partenaire/message.dart';
 import 'package:travel_app/screens/Formulaire.dart';
 
 class ParDetails extends StatefulWidget {
@@ -13,6 +14,7 @@ class ParDetails extends StatefulWidget {
   final String price;
   final String type;
   final String docId;
+  final String postedBy;
 
   ParDetails({
     Key? key,
@@ -23,6 +25,7 @@ class ParDetails extends StatefulWidget {
     required this.price,
     required this.type,
     required this.docId,
+    required this.postedBy,
   }) : super(key: key);
 
   @override
@@ -53,6 +56,7 @@ class _ParDetailsState extends State<ParDetails> {
     QuerySnapshot querySnapshot = await FirebaseFirestore.instance
         .collection(widget.type)
         .doc(widget.docId)
+        
         .collection('commentaire')
         .get();
 
@@ -124,8 +128,13 @@ class _ParDetailsState extends State<ParDetails> {
                                     ),
                                   ),
                                 ),
-                               IconButton(onPressed: (){ Navigator.push(context, MaterialPageRoute(builder :(context)=> const Formulaire(),)); }, icon: Icon(Icons.message,size: 30,   color: Color.fromARGB(255, 191, 191, 191),),),
-                               // IconButton(onPressed: (){ }, icon: const Icon(Icons.message_rounded,size: 30,color: Colors.black54, )),
+                              
+                               IconButton(onPressed: (){ if (widget.type== 'voyageOrganisé')
+                                Navigator.push(context, MaterialPageRoute(builder :(context)=> const Formulaire(),)); 
+                                else {Navigator.push(context, MaterialPageRoute(builder: (context)=> ChatScreen(receiver: widget.postedBy)));}}, icon: Icon(Icons.message,size: 30,   color: Color.fromARGB(255, 191, 191, 191),),),
+                              
+
+                              
                                 LikeButton(
                                   size: 40.0,
                                   circleColor: CircleColor(start: Colors.redAccent[400]!, end: Colors.redAccent[700]!),
@@ -318,7 +327,6 @@ class _ParDetailsState extends State<ParDetails> {
             ],
           ),
         ),
-      
     );
   }
 }

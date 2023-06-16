@@ -56,6 +56,7 @@ class _VoyageOraganiseState extends State<VoyageOraganise> {
   final String _location="";
   final String _price="";
   final String type="";
+  final String postedBy="";
 
   final FirebaseAuth _auth =FirebaseAuth.instance;
    
@@ -94,6 +95,7 @@ class _VoyageOraganiseState extends State<VoyageOraganise> {
                     final name = doc.get('name');
                     final location = doc.get('location');
                     final type = doc.get('type');
+                    final postedBy =doc.get('postedBy');
     
                  
                     Navigator.push(
@@ -107,7 +109,7 @@ class _VoyageOraganiseState extends State<VoyageOraganise> {
                           price: _price,
                           type:type,
                            docId: docId,
-                          
+                          postedBy: postedBy,
                         ),
                       ),
                     );

@@ -358,6 +358,7 @@ class _ServicesState extends State<Services> {
                         final name = doc.get('name');
                         final location = doc.get('location');
                         final price = doc.get('price');
+                        final postedBy =doc.get('postedBy');
   
                         Navigator.push(
                           context,
@@ -370,6 +371,7 @@ class _ServicesState extends State<Services> {
                               price: price,
                               type: type,
                               docId: docId,
+                              postedBy: postedBy,
                             ),
                           ),
                         );
@@ -470,6 +472,7 @@ class _ServicesState extends State<Services> {
                         final name = doc.get('name');
                         final location = doc.get('location');
                         final price = doc.get('price');
+                        final postedBy =doc.get('postedBy');
   
                         Navigator.push(
                           context,
@@ -482,6 +485,7 @@ class _ServicesState extends State<Services> {
                               price: price,
                               type: type,
                               docId: docId,
+                              postedBy: postedBy,
                             ),
                           ),
                         );
@@ -582,6 +586,7 @@ class _ServicesState extends State<Services> {
                         final name = doc.get('name');
                         final location = doc.get('location');
                         final price = doc.get('price');
+                        final postedBy =doc.get('postedBy');
   
                         Navigator.push(
                           context,
@@ -594,6 +599,7 @@ class _ServicesState extends State<Services> {
                               price: price,
                               type: type,
                               docId: docId,
+                              postedBy: postedBy,
                             ),
                           ),
                         );

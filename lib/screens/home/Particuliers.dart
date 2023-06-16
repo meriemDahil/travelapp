@@ -56,6 +56,7 @@ class _ParticuliersState extends State<Particuliers> {
   final String _location="";
   final String _price="";
   final String type="";
+  final String postedBy="";
 
   final FirebaseAuth _auth =FirebaseAuth.instance;
 
@@ -92,6 +93,7 @@ class _ParticuliersState extends State<Particuliers> {
                     final name = doc.get('name');
                     final location = doc.get('location');
                     final type = doc.get('type');
+                    final postedBy =doc.get('postedBy');
     
                  
                     Navigator.push(
@@ -105,6 +107,7 @@ class _ParticuliersState extends State<Particuliers> {
                           price: _price,
                           type:type,
                            docId: docId,
+                           postedBy: postedBy,
                           
                         ),
                       ),

@@ -53,7 +53,7 @@ class _logementState extends State<Logement> {
   final String _location="";
   final String _price="";
   final String type="";
-
+  final String postedBy="";
   final FirebaseAuth _auth =FirebaseAuth.instance;
 
   @override
@@ -89,6 +89,7 @@ class _logementState extends State<Logement> {
                     final name = doc.get('name');
                     final location = doc.get('location');
                     final type = doc.get('type');
+                    final postedBy =doc.get('postedBy');
     
                  
                     Navigator.push(
@@ -102,6 +103,7 @@ class _logementState extends State<Logement> {
                           price: _price,
                           type:type,
                            docId: docId,
+                           postedBy: postedBy,
                           
                         ),
                       ),
